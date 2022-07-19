@@ -45,9 +45,9 @@ function App() {
         <Sidebar />
         <Routes>
           <Route path='dashboard' element={<Dashboard data={{data,student, setStudent}} />} />
-          <Route path='createstudent' element={<CreateStudent  />} />
+          <Route path='createstudent' element={<CreateStudent data={{data,student, setStudent}} />} />
 
-          <Route path='editstudent' element={<EditStudent />} />
+          <Route path='editstudent/:id' element={<EditStudent data={{data,student, setStudent}}/>} />
           <Route path="*" element={<Dashboard data={{data,student,setStudent}} />} />
         </Routes>
       </BrowserRouter>

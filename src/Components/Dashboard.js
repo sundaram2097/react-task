@@ -1,10 +1,15 @@
 import React from 'react'
 import Table from 'react-bootstrap/Table';
 import Button from 'react-bootstrap/Button';
-import {Link} from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 function Dashboard(props) {
-    console.log(props);
+    let navigate = useNavigate();
+    let handleDelete = (i) => {
+        let student = [...props.data.student];
+        student.splice(i, 1);
+        props.data.setStudent(student);
+    }
     return <>
         <div className="container-fluid">
 
@@ -125,22 +130,22 @@ function Dashboard(props) {
                         </tr>
                     </thead>
                     <tbody>
-                       {
-                        props.data.student.map((e,i)=>{
-                            return<tr key={i}>
-                            <td>{i+1}</td>
-                            <td>{e.name}</td>
-                            <td>{e.email}</td>
-                            <td>{e.mobile}</td>
-                            <td>{e.batch}</td>
-                            <td>
-                               <Link to='/editstudent'> <Button variant="primary">Edit</Button></Link>
-                            &nbsp;&nbsp;
-                            <Button variant="danger">Delete</Button></td>
-                            </tr>
-                            
-                        })
-                       }
+                        {
+                            props.data.student.map((e, i) => {
+                                return <tr key={i}>
+                                    <td>{i + 1}</td>
+                                    <td>{e.name}</td>
+                                    <td>{e.email}</td>
+                                    <td>{e.mobile}</td>
+                                    <td>{e.batch}</td>
+                                    <td>
+                                        <Button variant="primary" onClick={() => navigate(`/editstudent/${i}`)}>Edit</Button>
+                                        &nbsp;&nbsp;
+                                        <Button variant="danger" onClick={() => (handleDelete(i))}>Delete</Button></td>
+                                </tr>
+
+                            })
+                        }
                     </tbody>
                 </Table>
             </div>
